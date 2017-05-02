@@ -36,21 +36,23 @@ Defaults are specified as JSON arrays in _/options.js_
 
 Orders are specified as JSON arrays in _/options.js_
 
-## Referenced software
-The following softare is referred to in the app:
-* [H.265](http://x265.org/)
-* [StaxRip](https://github.com/stax76/staxrip)
-* [MediaInfo](https://mediaarea.net/en/MediaInfo)
-* [Handbrake](https://handbrake.fr/)
-
-## The demo requires Firefox or Chrome
+## This app requires Firefox or Chrome
 The front-end is built with Bootstrap 4 Alpha and the generator is written in ES2015 (aka ES6).
+
 See it in action http://phaze-phusion.co.za/h265-encoder-settings/
 
-### License
+## License
 This app is published under the terms of the [GNU General Public License v2](LICENSE).
 
 ### Libraries Used
 
 * [jQuery](http://jquery.com/), MIT License
 * [Bootstrap v4](https://v4-alpha.getbootstrap.com/), MIT License
+
+### Referenced software
+The following software is referred to in the app:
+* [H.265](http://x265.org/)
+* [StaxRip](https://github.com/stax76/staxrip)
+* [MediaInfo](https://mediaarea.net/en/MediaInfo)
+* [Handbrake](https://handbrake.fr/)
+
