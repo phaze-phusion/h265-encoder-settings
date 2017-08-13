@@ -74,6 +74,7 @@ h265_properties = {
       'dither',
       'hash',
       'interlace',
+      'level-idc',
       'max-cll',
       'numa-pools',
       'overscan',
@@ -89,7 +90,9 @@ h265_properties = {
       'dhdr10-opt',
       'sar',
       'display-window',
-      'chromaloc'
+      'chromaloc',
+      'vbv-bufsize',
+      'vbv-maxrate'
     ]
   }
 };
