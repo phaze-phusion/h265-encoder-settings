@@ -1,8 +1,33 @@
-# Editors
-.idea
+# dependencies
+/node_modules
 
-# OS X metadata
+# compiled output
+/dist
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*/*.iml
+*.iml
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+*.zip
+*.log
+*.tgz
+.$*.bkp
+
+# System Files
 .DS_Store
-
-# Windows junk
 Thumbs.db
