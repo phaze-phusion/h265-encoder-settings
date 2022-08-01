@@ -37,8 +37,6 @@ Defaults are specified as JSON arrays in _/options.js_
 Orders are specified as JSON arrays in _/options.js_
 
 ## This app requires Firefox or Chrome
-The front-end is built with Bootstrap 4 Alpha and the generator is written in ES2015 (aka ES6).
-
 See it in action http://phaze-phusion.co.za/h265-encoder-settings/
 
 ## License
