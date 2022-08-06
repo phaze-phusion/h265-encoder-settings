@@ -51,7 +51,7 @@ export function app_inputToObject(value: string): EncoderPropertyObject {
     options = app_parseInputToObject(value, ':', '=');
   }
 
-  // Format some propertys values
+  // Format some property values
 
   if (typeof options['level-idc'] !== 'undefined') {
     const val = parseFloat(<string>options['level-idc']);

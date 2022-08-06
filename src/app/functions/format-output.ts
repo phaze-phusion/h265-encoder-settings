@@ -20,7 +20,8 @@ export function app_formatOutput(
       signage = (prop, val, valType) => {
         if (valType === 'boolean') {
           val = (val === true || val === 1 || val === 'true');
-          return val ? prop : 'no-' + prop + '=1';
+          prop = val ? prop : 'no-' + prop;
+          val = '1';
         }
         return prop + '=' + val;
       };
