@@ -1,7 +1,10 @@
-import {EncoderProperty} from '../static/EncoderProperty.model';
-import {Nullable} from './utlis';
-
-export function app_specialCasesFormats(prop: string, val: EncoderProperty, format: string): {v: Nullable<EncoderProperty>, t: string} {
+/**
+ * @param {string} prop
+ * @param {EncoderProperty} val
+ * @param {string} format
+ * @returns {ValTypeObject | {v: Nullable<EncoderProperty>, t: string}}
+ */
+export function app_specialCasesFormats(prop, val, format) {
   const booleanObject = {v: val, t: 'boolean'};
   const stringObject = {v: val, t: 'string'};
   const numberObject = {v: val, t: 'number'};
@@ -16,8 +19,8 @@ export function app_specialCasesFormats(prop: string, val: EncoderProperty, form
       if (val === false)
         return booleanObject;
       else if (format === 'handbrake') {
-        if ((<string>val).indexOf(':') !== -1)
-          return {v: (<string>val).replace(':', ','), t: 'string'};
+        if ((val).indexOf(':') !== -1)
+          return {v: (val).replace(':', ','), t: 'string'};
         else if (val === 0 || val === 1 || val === true)
           return booleanObject;
         else
@@ -34,7 +37,7 @@ export function app_specialCasesFormats(prop: string, val: EncoderProperty, form
       else
         return numberObject;
     case 'level-idc' :
-      val = parseFloat(<string>val);
+      val = parseFloat(val);
       if (val > 10)
         val /= 10;
       return numberObject;
@@ -46,12 +49,12 @@ export function app_specialCasesFormats(prop: string, val: EncoderProperty, form
     case 'asm' :
       if (val === false)
         return booleanObject;
-      else if (isNaN(<number>val))
+      else if (isNaN(val))
         return stringObject;
       else
         return nullObject;
     case 'scenecut-bias':
-      val = (<number>val < 1) ? <number>val * 100 : val;
+      val = (val < 1) ? val * 100 : val;
       return {v: val, t: 'number'};
     case 'chromaloc':
     case 'numa-pools':

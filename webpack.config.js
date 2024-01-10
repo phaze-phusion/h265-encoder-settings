@@ -1,52 +1,43 @@
-import path from 'path';
-import {Configuration as WebpackConfiguration, WebpackPluginInstance} from 'webpack';
-import {Configuration as WebpackDevServerConfiguration} from 'webpack-dev-server';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ESLintPlugin from 'eslint-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import StyleLintPlugin from 'stylelint-webpack-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
-import {default as npmPackage} from './package.json';
-
 /* global __dirname */
 
-interface Configuration extends WebpackConfiguration {
-  devServer?: WebpackDevServerConfiguration;
-}
-
+const path = require('path');
+const pathRoot = __dirname;
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const npmPackage = require(path.resolve(pathRoot, './package.json'));
 const packageName = npmPackage.name;
 
-module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production' }) => {
+/**
+ * @param {null} env
+ * @param {{ mode: 'none' | 'development' | 'production' }} argv
+ */
+module.exports = (env, argv) => {
+  const indexPackageName = argv.mode === 'development' ? 'index' : `${packageName}`;
+
   // Common configurations
   // ------------------------------------------------------
-  const config: Configuration = {
+  const config = {
     name: packageName,
     mode: argv.mode,
-    entry: './src/main.ts',
+    entry: './src/index.js',
     // https://webpack.js.org/configuration/output/
     output: {
+      // filename: `js/${indexPackageName}.js`,
       filename: `[name].js`,
     },
     target: 'browserslist',
-    resolve: {
-      extensions: ['.ts', '.js'],
-    },
+    resolve: {extensions: ['.js']},
     stats: {
       // errorDetails: true,
       children: true,
     },
     module: {
       rules: [
-        {
-          test: /\.ts$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-          }
-        },
         {
           test: /\.(s?css)$/,
           use: [
@@ -56,7 +47,6 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
               options: {
                 importLoaders: 1,
                 sourceMap: true,
-                url: false,
               },
             },
             'postcss-loader', // options loaded from postcss.config.js
@@ -67,7 +57,7 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
                 sassOptions: {
                   outputStyle: 'expanded',
                   includePaths: [
-                    'src/scss/'
+                    './src/scss/'
                   ],
                 },
               },
@@ -75,36 +65,58 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
           ],
         },
         // {
-        //   test: /\.(svg|jpg|png)$/i,
-        //   use: [
-        //     {
-        //       loader: 'file-loader',
-        //       options: {
-        //         name: '[path][name].[ext]',
-        //         context: 'src/',
-        //         publicPath: argv.mode === 'development' ? '/' : '../'
-        //       }
-        //     }
-        //   ]
+        //   // This loader is the one that auto-refreshes the browsers after an edit
+        //   test: /\.html$/,
+        //   use: [{
+        //     loader: 'html-loader',
+        //     options: {
+        //       minimize: argv.mode === 'development',
+        //     },
+        //   }],
         // },
+        {
+          test: /\.(svg|jpg|png|ico)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: '[name][ext]',
+          },
+        },
+        {
+          test: /\.js$/,
+          exclude: /(node_modules|coverage|tests)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env'],
+              ],
+              plugins: [
+                [
+                  "@babel/plugin-transform-runtime",
+                  {
+                    regenerator: true
+                  }
+                ]
+              ]
+            },
+          },
+        },
       ],
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: (argv.mode === 'development' ? '[name].css' : `styles.min.css`),
+        filename: argv.mode === 'development' ? '[name].css' : `${packageName}.min.css`,
         chunkFilename: '[id].css',
       }),
       new HtmlWebpackPlugin({
         favicon: './src/favicon.ico',
+        filename: `${indexPackageName}.html`,
+        template: './src/index.html',
         inject: true,
         hash: false,
-        template: './src/index.html',
-        filename: (argv.mode === 'development' ? 'index.html' : `${packageName}.html`),
+        minify: argv.mode !== 'development',
       }),
-      new ForkTsCheckerWebpackPlugin({
-        async: false
-      }),
-    ]
+    ],
   }; // Common configurations
 
   // Development build
@@ -120,9 +132,11 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
     config.devServer = {
       hot: true,
       watchFiles: ['src/**/*'],
-      // static: 'local',
       host: 'localhost',
       port: 4600,
+      devMiddleware: {
+        stats: 'errors-warnings', // 'minimal,  'errors-only', // 'normal'
+      },
     };
 
     config.performance = false;
@@ -133,7 +147,7 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
   // ------------------------------------------------------
   if (argv.mode === 'production') {
     config.output = {
-      filename: `script.min.js`,
+      filename: `${packageName}.min.js`,
       path: path.resolve(__dirname, './dist/'),
     };
 
@@ -150,37 +164,24 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
       minimizer: [
         // https://webpack.js.org/plugins/terser-webpack-plugin/
         new TerserPlugin({
-          test: /\.js($|\?)/i,
+          test: /\.js$/i,
+          exclude: /\.\/(tests|coverage|dist)/,
           parallel: true,
           extractComments: false,
+          minify: TerserPlugin.esbuildMinify,
           terserOptions: {
-            ecma: 2016,
-            // Mangle advanced options see:
-            // https://lihautan.com/reduce-minified-code-size-by-property-mangling/
-            // https://github.com/terser/terser#mangle-options
-            mangle: {
-              properties: {
-                // specify a list of names to be mangled with a regex
-                regex: /(^_)|(^app_|p_)/,
-              },
-            },
-            // https://github.com/terser/terser#compress-options
-            // compress: {
-            //   unsafe_arrows: true,
-            //   // passes: 2,
-            // },
-            format: {
-              comments: false, // Default is 'some'. Can use regex /(?:^!|@(?:license|preserve))/i,
-            },
+            // https://esbuild.github.io/api/#keep-names
+            ecma: 2018,
+            minify: true,
+            treeShaking: true,
+            keepNames: false,
+            mangleProps: /^_/
           },
         }),
         new CssMinimizerPlugin({
           include: /\.css$/g,
           minimizerOptions: {
-            // map: {
-            //   inline: false,
-            //   annotation: true,
-            // },
+            sourcemap: false,
             preset: ['default', {discardComments: {removeAll: true}}],
           },
           parallel: true,
@@ -194,15 +195,16 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
         verbose: false,
         cleanOnceBeforeBuildPatterns: ['./**/*'], // clean out dist directory
       }),
-      ...(config.plugins as WebpackPluginInstance[]),
+      new StyleLintPlugin({
+        context: './src/scss/',
+        extensions: ['scss'],
+        files: ['**/*.scss'],
+      }),
       new ESLintPlugin({
-        extensions: ['.ts', '.js'],
+        extensions: ['.js'],
         exclude: 'node_modules'
       }),
-      new StyleLintPlugin({
-        configFile: './.stylelintrc.js',
-        files: 'src/scss/*.scss',
-      }),
+      ...(config.plugins),
     ];
 
   } // IF mode === 'production'

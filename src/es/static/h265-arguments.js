@@ -1,5 +1,6 @@
-import {EncoderPropertyObject} from './EncoderProperty.model';
-
+/**
+ * @type {H265ArgumentsModel}
+ */
 export const h265Arguments = {
   base: {
     // Add Default Options
@@ -616,17 +617,3 @@ export const h265Arguments = {
     },
   },
 };
-
-export type H265ArgumentsModel = {
-  base: {
-    [key: string]: EncoderPropertyObject;
-  };
-  order: {
-    [key: string]: string[];
-  };
-  remove: {
-    [key: string]: {
-      [key: string]: number | string | boolean;
-    }
-  };
-}

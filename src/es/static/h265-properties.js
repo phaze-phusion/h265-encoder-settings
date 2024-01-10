@@ -1,3 +1,6 @@
+/**
+ * @type {H265PropertiesModel}
+ */
 export const h265Properties = {
   format : {
     no_able : [
@@ -93,13 +96,5 @@ export const h265Properties = {
       'vbv-bufsize',
       'vbv-maxrate'
     ]
-  }
-};
-
-export type H265PropertiesModel = {
-  format: {
-    no_able: string[];
-    str_num: string[];
-    strange: string[];
   }
 };

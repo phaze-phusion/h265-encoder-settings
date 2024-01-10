@@ -1,15 +1,12 @@
-import {EncoderProperty} from '../static/EncoderProperty.model';
-
 /**
  * Convert ME value
  *
- * @param {number|string} value The value that will possibly be converted
- * @param {boolean} returnANumber = true If true return a number, else return a string
- *
- * @return {number|string}
+ * @param {(number|string)|EncoderProperty} value The value that will possibly be converted
+ * @param {boolean} [returnANumber=true] If true return a number, else return a string
+ * @returns {EncoderProperty}
  */
-export function app_meConversion(value: EncoderProperty, returnANumber = true): EncoderProperty {
-  if (isNaN(<number>value)) {
+export function app_meConversion(value, returnANumber = true) {
+  if (isNaN(value)) {
     if (returnANumber) {
       switch (value) {
         case 'dia' :
