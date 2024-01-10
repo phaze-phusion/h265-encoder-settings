@@ -48,7 +48,7 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
           }
         },
         {
-          test: /\.(css|scss)$/,
+          test: /\.(s?css)$/,
           use: [
             argv.mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
@@ -67,7 +67,6 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
                 sassOptions: {
                   outputStyle: 'expanded',
                   includePaths: [
-                    'src/scss.scss',
                     'src/scss/'
                   ],
                 },
@@ -201,8 +200,8 @@ module.exports = (env: null, argv: { mode: 'none' | 'development' | 'production'
         exclude: 'node_modules'
       }),
       new StyleLintPlugin({
-        configFile: './stylelint.config.js',
-        files: 'src/*.scss',
+        configFile: './.stylelintrc.js',
+        files: 'src/scss/*.scss',
       }),
     ];
 

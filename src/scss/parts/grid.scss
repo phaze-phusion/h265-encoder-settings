@@ -1,0 +1,30 @@
+@use 'sass:math';
+
+#page-grid {
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 16px;
+  // grid-template-columns: 200px auto;
+  // grid-template-rows: 40px auto 40px auto;
+  grid-template: 40px auto 40px auto / 200px auto;
+  grid-template-areas:
+    'options-area input-area-title'
+    'options-area input-area'
+    'options-area output-area-title'
+    'options-area output-area';
+}
+
+@each $grid-area in (options-area, input-area-title, input-area, output-area-title, output-area) {
+  ##{$grid-area} {
+    grid-area: #{$grid-area};
+  }
+}
+
+.grid-references {
+  box-sizing: border-box;
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: 3fr 5fr 4fr;
+  grid-template-rows: 1fr;
+  width: 33.33%;
+}

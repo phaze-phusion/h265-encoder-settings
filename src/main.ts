@@ -1,4 +1,4 @@
-import './styles.scss';
+import './scss/styles.scss';
 import {initializeInterface} from "./app/user-interface.controller";
 
 window.addEventListener('DOMContentLoaded', () => {

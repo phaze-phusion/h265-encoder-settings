@@ -5,137 +5,168 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, shrink-to-fit=no">
-  <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
   <title>H265 Encoder Settings</title>
   <meta name="description" content="H265 Commandline options"/>
   <meta name="author" content="phaze-phusion"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
+  <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <!--<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">-->
 </head>
-<body role="document">
-<main class="container" role="main">
-  <header class="mt-1">
-    <h1 id="brand-title">H265 Encoder Settings</h1>
-    <!--<span class="text-center">
-      <strong class="text-danger d-block d-sm-none">XS</strong>
-      <strong class="text-warning d-none d-sm-block d-md-none">SM</strong>
-      <strong class="text-success d-none d-md-block d-lg-none">MD</strong>
-      <strong class="text-secondary d-none d-lg-block d-xl-none">LG</strong>
-      <strong class="text-info d-none d-xl-block d-xxl-none">XL</strong>
-      <strong class="text-primary d-none d-xxl-block">XXL</strong>
-    </span>-->
-  </header>
-
-  <div class="row">
-    <label for="encoder-input" class="col-form-label col-12 col-sm-3 col-lg-2">Input</label>
-    <div class="col-12 col-sm-9 col-lg-10">
-      <textarea id="encoder-input" class="form-control form-control-sm" tabindex="1" rows="6">preset=slow / profile=main / level-idc=4 / keyint=250 / deblock=0:0 / min-keyint=23 / output-depth=10 / me=3 / subme=3 / rdoq-level=0 / psy-rd=0.3 / psy-rdoq=0 / qg-size=32 / qpmax=51 / no-annexb / limit-modes / no-rd-refine / no-rect / rskip / wpp</textarea>
-    </div>
+<body>
+<main id="page">
+  <div id="page-header">
+    <h1 id="page-title">H265 Encoder Settings</h1>
   </div>
 
-  <div class="form-group row fieldset-odd pt-2 pb-0">
-    <label class="col-form-label-md col-12 col-md-3 col-lg-2 pr-md-0">Add base Options</label>
+  <div id="page-grid">
 
-    <div class="btn-group col-12 col-md-9 col-lg-10" data-toggle="buttons">
-      <input type="radio" class="btn-check" name="set-base" id="set-base-none" value="none" checked>
-      <label class="btn btn-secondary" for="set-base-none">None</label>
-      <input type="radio" class="btn-check" name="set-base" id="set-base-default" value="h265-default">
-      <label class="btn btn-secondary" for="set-base-default">H265 Default</label>
-      <input type="radio" class="btn-check" name="set-base" id="set-base-custom" value="custom">
-      <label class="btn btn-secondary" for="set-base-custom">Custom</label>
+    <div id="options-area">
+      <div class="option-section-title">Add base Options</div>
+      <div class="option-section">
+        <div class="form-field">
+          <label for="rd-base-none" class="form-radio" title="Add no base options">
+            <input id="rd-base-none" name="rd-base" type="radio" class="form-radio-input" value="none" checked>
+            <span class="form-radio-label">None</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-base-default" class="form-radio" title="Add default H265 options">
+            <input id="rd-base-default" name="rd-base" type="radio" class="form-radio-input" value="h265-default">
+            <span class="form-radio-label">H265 Default</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-base-custom" class="form-radio" title="Add custom options">
+            <input id="rd-base-custom" name="rd-base" type="radio" class="form-radio-input" value="custom">
+            <span class="form-radio-label">Custom</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="option-section-title">Remove Options</div>
+      <div class="option-section">
+        <div class="form-field">
+          <label for="rd-remove-none" class="form-radio" title="Remove no options">
+            <input id="rd-remove-none" name="rd-remove" type="radio" class="form-radio-input" value="none" checked>
+            <span class="form-radio-label">None</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-remove-default" class="form-radio" title="Remove default H265 options">
+            <input id="rd-remove-default" name="rd-remove" type="radio" class="form-radio-input" value="h265-default">
+            <span class="form-radio-label">H265 Default</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-remove-custom" class="form-radio" title="Remove custom options">
+            <input id="rd-remove-custom" name="rd-remove" type="radio" class="form-radio-input" value="custom">
+            <span class="form-radio-label">Custom</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="option-section-title">Output format</div>
+      <div class="option-section">
+        <div class="form-field">
+          <label for="rd-format-cli" class="form-radio" title="Use CLI format for output">
+            <input id="rd-format-cli" name="rd-output-format" type="radio" class="form-radio-input" value="cli">
+            <span class="form-radio-label">CLI</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-format-handbrake" class="form-radio" title="Use HandBrake format for output">
+            <input id="rd-format-handbrake" name="rd-output-format" type="radio" class="form-radio-input" value="handbrake">
+            <span class="form-radio-label">HandBrake</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-format-json" class="form-radio" title="Use JSON format for output">
+            <input id="rd-format-json" name="rd-output-format" type="radio" class="form-radio-input" value="json">
+            <span class="form-radio-label">JSON</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-format-tabular" class="form-radio" title="Use tabular format for output">
+            <input id="rd-format-tabular" name="rd-output-format" type="radio" class="form-radio-input" value="tabular" checked>
+            <span class="form-radio-label">Tabular</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-format-mediainfo" class="form-radio" title="Use MediaInfo format for output">
+            <input id="rd-format-mediainfo" name="rd-output-format" type="radio" class="form-radio-input" value="mediainfo">
+            <span class="form-radio-label">MediaInfo</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="option-section-title">Output order</div>
+      <div class="option-section">
+        <div class="form-field">
+          <label for="rd-order-none" class="form-radio" title="No change to output order">
+            <input id="rd-order-none" name="rd-output-order" type="radio" class="form-radio-input" value="none">
+            <span class="form-radio-label">No change</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-order-staxrip" class="form-radio" title="Use StaxRip order for output">
+            <input id="rd-order-staxrip" name="rd-output-order" type="radio" class="form-radio-input" value="staxrip" checked>
+            <span class="form-radio-label">StaxRip</span>
+          </label>
+        </div>
+        <div class="form-field">
+          <label for="rd-order-mediainfo" class="form-radio" title="Use MediaInfo order for output">
+            <input id="rd-order-mediainfo" name="rd-output-order" type="radio" class="form-radio-input" value="mediainfo">
+            <span class="form-radio-label">MediaInfo</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="option-section">
+        <button id="convert-btn">Convert</button>
+      </div>
     </div>
+
+    <label id="input-area-title" for="encoder-input" class="form-textarea-label">Input</label>
+    <div id="input-area">
+      <textarea id="encoder-input" class="form-textarea" tabindex="1">preset=slow / profile=main / level-idc=4 / keyint=250 / deblock=0:0 / min-keyint=23 / output-depth=10 / me=3 / subme=3 / rdoq-level=0 / psy-rd=0.3 / psy-rdoq=0 / qg-size=32 / qpmax=51 / no-annexb / limit-modes / no-rd-refine / no-rect / rskip / wpp</textarea>
+    </div>
+
+    <label id="output-area-title" for="encoder-output" class="form-textarea-label">Output</label>
+    <div id="output-area">
+      <textarea id="encoder-output" class="form-textarea" readonly tabindex="2"></textarea>
+    </div>
+
   </div>
 
-  <div class="form-group row fieldset-odd pt-2 pb-0">
-    <label class="col-form-label-md col-12 col-md-3 col-lg-2 pr-md-0">Remove Options</label>
-
-    <div class="btn-group col-12 col-md-9 col-lg-10" data-toggle="buttons">
-      <input type="radio" class="btn-check" name="set-remove" id="set-remove-none" value="none" checked>
-      <label class="btn btn-secondary" for="set-remove-none">None</label>
-      <input type="radio" class="btn-check" name="set-remove" id="set-remove-default" value="h265-default">
-      <label class="btn btn-secondary" for="set-remove-default">H265 Default</label>
-      <input type="radio" class="btn-check" name="set-remove" id="set-remove-custom" value="custom">
-      <label class="btn btn-secondary" for="set-remove-custom">Custom</label>
+  <div id="page-footer">
+    <div id="reference-software">
+      <h3>Referenced software</h3>
+      <div class="grid-references">
+        <div><a href="http://x265.org/" target="_blank">H.265</a></div>
+        <div><a href="https://x265.readthedocs.io/en/default/cli.html" target="_blank">H.265 documentation</a></div>
+        <div>GNU GPL v2 license</div>
+      </div>
+      <div class="grid-references">
+        <div><a href="https://handbrake.fr/" target="_blank">Handbrake</a></div>
+        <div><a href="https://handbrake.fr/docs/en/latest/" target="_blank">Handbrake documentation</a></div>
+        <div>GNU GPL v2 license</div>
+      </div>
+      <div class="grid-references">
+        <div><a href="https://github.com/stax76/staxrip" target="_blank">StaxRip</a></div>
+        <div><a href="https://stax76.gitbooks.io/staxrip-handbook/content/" target="_blank">StaxRip documentation</a></div>
+        <div>MIT License</div>
+      </div>
+      <div class="grid-references">
+        <div><a href="https://mediaarea.net/en/MediaInfo" target="_blank">MediaInfo</a></div>
+        <div><a href="https://mediaarea.net/en/MediaInfo/Support" target="_blank">MediaInfo support</a></div>
+        <div>BSD-style License</div>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row fieldset-odd pt-2 pb-0">
-    <label class="col-form-label-md col-12 col-md-3 col-lg-2 pr-md-0">Output Format</label>
-
-    <div class="btn-group col-12 col-md-9 col-lg-10" data-toggle="buttons">
-      <input type="radio" class="btn-check" name="out-format" id="out-format-cli" value="cli">
-      <label class="btn btn-secondary" for="out-format-cli">CLI</label>
-      <input type="radio" class="btn-check" name="out-format" id="out-format-handbrake" value="handbrake">
-      <label class="btn btn-secondary" for="out-format-handbrake">HandBrake</label>
-      <input type="radio" class="btn-check" name="out-format" id="out-format-json" value="json">
-      <label class="btn btn-secondary" for="out-format-json">JSON</label>
-      <input type="radio" class="btn-check" name="out-format" id="out-format-tab" value="tab" checked>
-      <label class="btn btn-secondary" for="out-format-tab">Tabular</label>
-      <input type="radio" class="btn-check" name="out-format" id="out-format-mediainfo" value="mediainfo">
-      <label class="btn btn-secondary" for="out-format-mediainfo">MediaInfo</label>
-    </div>
-  </div>
-
-  <div class="form-group row fieldset-odd pt-2 pb-0">
-    <label class="col-form-label-md col-12 col-md-3 col-lg-2 pr-md-0">Output Order</label>
-
-    <div class="btn-group col-12 col-md-9 col-lg-10" data-toggle="buttons">
-      <input type="radio" class="btn-check" name="out-order" id="out-order-none" value="none">
-      <label class="btn btn-secondary" for="out-order-none">No Change</label>
-      <input type="radio" class="btn-check" name="out-order" id="out-order-staxrip" value="staxrip" checked>
-      <label class="btn btn-secondary" for="out-order-staxrip">StaxRip</label>
-      <input type="radio" class="btn-check" name="out-order" id="out-order-mediainfo" value="mediainfo">
-      <label class="btn btn-secondary" for="out-order-mediainfo">MediaInfo</label>
-    </div>
-  </div>
-
-  <div class="row pt-2 pb-0">
-    <div class="col-12 col-md-3 col-lg-2"></div>
-    <div class="col">
-      <button id="convert-btn" class="btn btn-warning w-100">Convert</button>
-    </div>
-  </div>
-
-  <div class="form-group row fieldset-even pt-2 pb-2">
-    <label for="encoder-output" class="col-form-label-md col-12 col-sm-3 col-lg-2">Output</label>
-    <div class="col-12 col-sm-9 col-lg-10">
-      <textarea id="encoder-output" class="form-control form-control-sm" rows="6" readonly tabindex="2"></textarea>
-    </div>
-  </div>
-
-  <footer class="mt-3 mb-5">
-    <h3>Referenced software</h3>
-    <div class="row border-bottom-dashed">
-      <div class="col-3 col-lg-2"><a href="http://x265.org/" target="_blank">H.265</a></div>
-      <div class="col-5 col-lg-3"><a href="https://x265.readthedocs.io/en/default/cli.html" target="_blank">H.265 documentation</a></div>
-      <div class="col-4 col-lg-3">GNU GPL v2 license</div>
-    </div>
-    <div class="row border-bottom-dashed">
-      <div class="col-3 col-lg-2"><a href="https://handbrake.fr/" target="_blank">Handbrake</a></div>
-      <div class="col-5 col-lg-3"><a href="https://handbrake.fr/docs/en/latest/" target="_blank">Handbrake documentation</a></div>
-      <div class="col-4 col-lg-3">GNU GPL v2 license</div>
-    </div>
-    <div class="row border-bottom-dashed">
-      <div class="col-3 col-lg-2"><a href="https://github.com/stax76/staxrip" target="_blank">StaxRip</a></div>
-      <div class="col-5 col-lg-3"><a href="https://stax76.gitbooks.io/staxrip-handbook/content/" target="_blank">StaxRip documentation</a></div>
-      <div class="col-4 col-lg-3">MIT License</div>
-    </div>
-    <div class="row border-bottom-dashed">
-      <div class="col-3 col-lg-2"><a href="https://mediaarea.net/en/MediaInfo" target="_blank">MediaInfo</a></div>
-      <div class="col-5 col-lg-3"><a href="https://mediaarea.net/en/MediaInfo/Support" target="_blank">MediaInfo support</a></div>
-      <div class="col-4 col-lg-3">BSD-style License</div>
-    </div>
-  </footer>
-
-</main>
-<div id="page-footer">
-  <div class="container">
     <div id="footer-copyright">
-      Copyright 2017 &copy; <a href="http://phaze-phusion.co.za" target="_blank">phaze-phusion</a>.<br class="visible-xs"/>
+      Copyright 2024 &copy; <a href="http://phaze-phusion.co.za" target="_blank">phaze-phusion</a>.<br>
       Published under the terms of the <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank" title="GNU GPL v2">GNU General Public License v2</a>.
     </div>
   </div>
-</div>
+</main>
 </body>
 </html>
