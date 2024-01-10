@@ -36,16 +36,11 @@ Defaults are specified as JSON arrays in _/options.js_
 
 Orders are specified as JSON arrays in _/options.js_
 
-## This app requires Firefox or Chrome
-See it in action http://phaze-phusion.co.za/h265-encoder-settings/
+## Live example
+See an older version at [h265-encoder-settings](http://phaze-phusion.co.za/h265-encoder-settings/)
 
 ## License
 This app is published under the terms of the [GNU General Public License v2](LICENSE).
-
-### Libraries Used
-
-* [jQuery](http://jquery.com/), MIT License
-* [Bootstrap v4](https://v4-alpha.getbootstrap.com/), MIT License
 
 ### Referenced software
 The following software is referred to in the app:
@@ -53,4 +48,3 @@ The following software is referred to in the app:
 * [StaxRip](https://github.com/stax76/staxrip)
 * [MediaInfo](https://mediaarea.net/en/MediaInfo)
 * [Handbrake](https://handbrake.fr/)
-
