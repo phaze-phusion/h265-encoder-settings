@@ -2,21 +2,21 @@ module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    requireConfigFile: false,
+    babelOptions: {
+      babelrc: false,
+      configFile: false,
+      presets: ["@babel/preset-env"],
+    },
     ecmaVersion: 2018,
     sourceType: 'module',
-    // requireConfigFile: false,
     ecmaFeatures: {
       modules: true,
-      experimentalObjectRestSpread: true,
       impliedStrict: true,
-      arrowFunction: true
     },
   },
   plugins: [
     'import',
-    'babel',
-    'promise',
-    'prefer-arrow',
     '@typescript-eslint',
   ],
   extends: [
@@ -34,7 +34,6 @@ module.exports = {
   },
   ignorePatterns: [
     'dist/',
-    'documentation/',
     'node_modules/'
   ],
 
@@ -42,30 +41,6 @@ module.exports = {
   // 1 or "warn" - turn the rule on as a warning (doesn't affect exit code)
   // 2 or "error" - turn the rule on as an error (exit code is 1 when triggered)
   rules: {
-    // https://www.npmjs.com/package/eslint-plugin-babel#rules
-    'babel/new-cap': 1,
-    'babel/camelcase': 0,
-    'babel/no-invalid-this': 2,
-    'babel/object-curly-spacing': 0,
-    'babel/quotes': 0,
-    'babel/semi': 2,
-    'babel/no-unused-expressions': 2,
-    'babel/valid-typeof': 2,
-
-    // https://www.npmjs.com/package/eslint-plugin-promise#rules
-    'promise/always-return': 1,
-    'promise/avoid-new': 0,
-    'promise/catch-or-return': 1,
-    'promise/no-callback-in-promise': 1,
-    'promise/no-nesting': 1,
-    'promise/no-native': 0,
-    'promise/no-new-statics': 2,
-    'promise/no-promise-in-callback': 1,
-    'promise/no-return-in-finally': 1,
-    'promise/no-return-wrap': 2,
-    'promise/param-names': 2,
-    'promise/valid-params': 1,
-
     // https://mysticatea.github.io/eslint-plugin-eslint-comments/rules/
     'eslint-comments/no-duplicate-disable': 2,
     'eslint-comments/no-unlimited-disable': 2,

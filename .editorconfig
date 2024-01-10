@@ -12,7 +12,7 @@ trim_trailing_whitespace = true
 [*.{js,ts,scss}]
 quote_type = single
 
-[*.min.js]
+[{*.min.js,*.html}]
 insert_final_newline = false
 
 [*.md]
