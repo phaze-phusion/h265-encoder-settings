@@ -51,7 +51,7 @@ export function app_specialCasesFormats(prop: string, val: EncoderProperty, form
       else
         return nullObject;
     case 'scenecut-bias':
-      val = (val < 1) ? <number>val * 100 : val;
+      val = (<number>val < 1) ? <number>val * 100 : val;
       return {v: val, t: 'number'};
     case 'chromaloc':
     case 'numa-pools':
@@ -71,8 +71,8 @@ export function app_specialCasesFormats(prop: string, val: EncoderProperty, form
       return (val === 0 || val === false) ? nullObject : numberObject;
     case 'dhdr10-opt' :
       return (val === true) ? booleanObject : nullObject;
-    case 'display-window' :
-    case 'zones' :
+    case 'display-window' : // h265 --display-window: https://x265.readthedocs.io/en/stable/cli.html#cmdoption-display-window
+    case 'zones' : // h265 --zones: https://x265.readthedocs.io/en/stable/cli.html#cmdoption-zones
     default :
       return nullObject;
   }
